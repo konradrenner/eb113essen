@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./mainLayout.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+
+    <ui:define name="content">
+        
+        
+        
+    <a4j:status onstart="#{rich:component('statPane')}.show()" onstop="#{rich:component('statPane')}.hide()" />
+    <h:form id="form">
+        <rich:dataTable value="#{essen.essensWahl}" var="wahl" iterationStatusVar="it" id="table" rows="6">
+            <rich:column>
+                <f:facet name="header">#</f:facet>
+                #{it.index}
+            </rich:column>
+            <rich:column>
+                <f:facet name="header">Person</f:facet>
+                <h:outputText value="#{wahl.person}" />
+            </rich:column>
+            <rich:column>
+                <f:facet name="header">Essenswahl</f:facet>
+                <h:outputText value="#{wahl.auswahl}" />
+            </rich:column>
+            <rich:column>
+                <a4j:commandLink styleClass="no-decor" render="editGrid" execute="@this"
+                    oncomplete="#{rich:component('editPane')}.show()">
+                    <h:graphicImage value="/images/icons/edit.gif" alt="edit" />
+                    <a4j:param value="#{it.index}" assignTo="#{essen.currentIndex}" />
+                    <f:setPropertyActionListener target="#{essen.editedItem}" value="#{wahl}" />
+                </a4j:commandLink>
+            </rich:column>
+        </rich:dataTable>
+ 
+        <rich:popupPanel id="statPane" autosized="true">
+            <h:graphicImage value="/images/ai.gif" alt="ai" />
+            Please wait...
+        </rich:popupPanel>
+ 
+        <rich:popupPanel header="Essen auswaehlen" id="editPane" domElementAttachment="parent" width="400" height="170">
+            <h:panelGrid columns="3" id="editGrid">
+                <h:outputText value="Person" />
+                <h:outputText value="#{essen.editedItem.person}" converter="personenConverter"/>
+                <h:panelGroup />
+                <h:outputText value="Essen" />
+                <h:selectOneMenu value="#{essen.editedItem.auswahl}" converter="essensMoeglichkeitenConverter">
+                    <f:selectItems value="#{essen.essensMoeglichkeiten}" />
+                </h:selectOneMenu>
+                <h:panelGroup />
+            </h:panelGrid>
+            <a4j:outputPanel ajaxRendered="true">
+                <h:messages  showDetail="true"/>
+            </a4j:outputPanel>
+            <a4j:commandButton value="Store" action="#{essen.store}" render="table" execute="editPane" 
+                oncomplete="if (#{facesContext.maximumSeverity==null}) {#{rich:component('editPane')}.hide();}" />
+            <a4j:commandButton value="Cancel" onclick="#{rich:component('editPane')}.hide(); return false;" />
+        </rich:popupPanel>
+        
+        <h:outputText value="Heutige Essenswahl:" />
+        <h:outputText value="#{essen.essensAuswahl}" />
+        &nbsp;
+        <h:outputText value="Besteller:" />
+        <h:outputText value="#{essen.besteller}" />
+        
+    </h:form>
+    </ui:define>
+
+</ui:composition>
