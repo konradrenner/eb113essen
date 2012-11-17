@@ -4,6 +4,8 @@
  */
 package org.eb113.essen.ejb;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -59,7 +61,6 @@ public class EssenBean {
     }
     
     public void addAuswahl(Person person, EssensMoeglichkeit essen){
-        System.out.println("Folgende Daten werden gesetzt:"+person+";"+essen);
         this.auswahl.put(person, essen);
     }
     
@@ -94,8 +95,14 @@ public class EssenBean {
         }
 
         this.actualAuswahl = null;
+        
+        float anzAnwesende = ((float)Personen.values().length) - ((float)anzNichtAnwesend);
+        float drei = 3;
+        float zwei = 2;
+        
+        float fzweidrittelMehrheit = anzAnwesende/drei*zwei;
 
-        int zweidrittelMehrheit = ((Personen.values().length - anzNichtAnwesend)/3)*2;
+        int zweidrittelMehrheit = fzweidrittelMehrheit%((int)fzweidrittelMehrheit) > 0.0 ? ((int)fzweidrittelMehrheit)+1 : (int)fzweidrittelMehrheit;
 
         for(EssensMoeglichkeit keys : auswahlen.keySet()){
             if(auswahlen.get(keys).intValue() >= zweidrittelMehrheit){
@@ -114,16 +121,16 @@ public class EssenBean {
                 wahl = getRandomEssensWahl(auswahlen.keySet());
             }
             this.actualAuswahl = wahl.toString();
-
-            if(wahl.equals(EssensMoeglichkeiten.BESTELLUNG.getEssensMoeglichkeit())){
-                boolean nok = true;
-                while(nok){
-                    Person p = Personen.getRandomBesteller();
-                    
-                    if(!this.auswahl.get(p).equals(EssensMoeglichkeiten.NICHTANWESEND.getEssensMoeglichkeit())){
-                        this.besteller = Personen.getRandomBesteller().toString();
-                        nok = false;
-                    }
+        }
+        
+        if(this.actualAuswahl.equals(EssensMoeglichkeiten.BESTELLUNG.getEssensMoeglichkeit().toString())){
+            boolean nok = true;
+            while(nok){
+                Person p = Personen.getRandomBesteller();
+                
+                if(!this.auswahl.get(p).equals(EssensMoeglichkeiten.NICHTANWESEND.getEssensMoeglichkeit())){
+                    this.besteller = Personen.getRandomBesteller().toString();
+                    nok = false;
                 }
             }
         }

@@ -38,7 +38,7 @@ public enum EssensMoeglichkeiten {
 
     @Override
     public String toString() {
-        return m.getWuerfelAugen() + " - " + m.getBezeichnung();
+        return m.toString();
     }
     
     public static EssensMoeglichkeit getRandomMoeglichkeit(){

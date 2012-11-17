@@ -37,7 +37,6 @@ public class EssenController implements Serializable {
     }
     
     public void store(){
-        System.out.println("storing:"+editedItem);
         bean.addAuswahl(editedItem.getPerson(), editedItem.getAuswahl());
     }
     
@@ -80,7 +79,6 @@ public class EssenController implements Serializable {
     }
 
     public EssensAuswahl getEditedItem() {
-        System.out.println("Lade Item:"+editedItem);
         return editedItem;
     }
 
