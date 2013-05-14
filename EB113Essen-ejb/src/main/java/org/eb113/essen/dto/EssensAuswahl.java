@@ -7,7 +7,7 @@ package org.eb113.essen.dto;
 import java.io.Serializable;
 
 /**
- *
+ * 
  * @author koni
  */
 public class EssensAuswahl implements Serializable, Comparable<EssensAuswahl> {
@@ -15,6 +15,7 @@ public class EssensAuswahl implements Serializable, Comparable<EssensAuswahl> {
     private EssensMoeglichkeit auswahl;
 
     public EssensAuswahl(){
+    	//Test Robert
         this(null,null);
     }
     
