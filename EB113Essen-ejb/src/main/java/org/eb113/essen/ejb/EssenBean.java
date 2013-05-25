@@ -41,6 +41,8 @@ import org.eb113.essen.dto.Personen;
 public class EssenBean {
     Map<Person, EssensMoeglichkeit> auswahl;
     
+    //Test commit Robert
+    
     private String actualAuswahl;
     private String besteller;
     
