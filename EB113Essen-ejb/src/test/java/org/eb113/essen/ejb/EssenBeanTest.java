@@ -49,6 +49,7 @@ public class EssenBeanTest {
         assertNotSame("", bean.getBesteller().trim());
         
         assertNotSame(Personen.RENNER.getPerson().toString(), bean.getBesteller());
+        assertNotSame(Personen.ROHRBOECK.getPerson().toString(), bean.getBesteller());
         assertNotSame(Personen.WOHLMUTH.getPerson().toString(), bean.getBesteller());
         assertEquals(EssensMoeglichkeiten.BESTELLUNG.getEssensMoeglichkeit().toString(), bean.getActualAuswahl());
     }
