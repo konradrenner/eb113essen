@@ -41,8 +41,6 @@ import org.eb113.essen.dto.Personen;
 public class EssenBean {
     Map<Person, EssensMoeglichkeit> auswahl;
     
-    //Test commit Robert
-    
     private String actualAuswahl;
     private String besteller;
     
@@ -130,7 +128,8 @@ public class EssenBean {
             while(nok){
                 Person p = Personen.getRandomBesteller();
                 
-                if(!this.auswahl.get(p).equals(EssensMoeglichkeiten.NICHTANWESEND.getEssensMoeglichkeit())){
+                //SlaR: Besteller kann nur sein, wer Bestellung ausgwaehlt hat
+                if(!this.auswahl.get(p).equals(EssensMoeglichkeiten.BESTELLUNG.getEssensMoeglichkeit())){
                     this.besteller = Personen.getRandomBesteller().toString();
                     nok = false;
                 }
