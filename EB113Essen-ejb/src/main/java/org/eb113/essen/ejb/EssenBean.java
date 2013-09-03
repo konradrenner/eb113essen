@@ -4,8 +4,6 @@
  */
 package org.eb113.essen.ejb;
 
-import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -14,11 +12,13 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
+
 import org.eb113.essen.dto.EssensAuswahl;
 import org.eb113.essen.dto.EssensMoeglichkeit;
 import org.eb113.essen.dto.EssensMoeglichkeiten;
@@ -129,7 +129,7 @@ public class EssenBean {
                 Person p = Personen.getRandomBesteller();
                 
                 //SlaR: Besteller kann nur sein, wer Bestellung ausgwaehlt hat
-                if(!this.auswahl.get(p).equals(EssensMoeglichkeiten.BESTELLUNG.getEssensMoeglichkeit())){
+                if(this.auswahl.get(p).equals(EssensMoeglichkeiten.BESTELLUNG.getEssensMoeglichkeit())){
                     this.besteller = Personen.getRandomBesteller().toString();
                     nok = false;
                 }
