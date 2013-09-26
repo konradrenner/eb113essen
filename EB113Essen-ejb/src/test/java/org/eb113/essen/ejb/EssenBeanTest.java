@@ -4,15 +4,19 @@
  */
 package org.eb113.essen.ejb;
 
-import java.util.Arrays;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Collection;
+
+import org.eb113.essen.dto.EssensAuswahl;
 import org.eb113.essen.dto.EssensMoeglichkeiten;
-import org.eb113.essen.dto.Person;
 import org.eb113.essen.dto.Personen;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.matchers.JUnitMatchers;
 
 /**
  *
@@ -83,5 +87,13 @@ public class EssenBeanTest {
         }else{
             assertEquals("", bean.getBesteller().trim());
         }
+    }
+    
+    @Test
+    public void testPersonen(){
+    	Collection<EssensAuswahl> essensAuswahl = bean.getGewaehlteMoeglichkeiten();
+    	for(EssensAuswahl one: essensAuswahl){
+    		System.out.println("Nachname: " + one.getPerson().getNachname());
+    	}
     }
 }

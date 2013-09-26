@@ -70,7 +70,9 @@ public class EssenBean {
             ret.add(new EssensAuswahl(person, this.auswahl.get(person)));
         }
         
-        Collections.sort(ret);
+//        Collections.sort(ret);
+        //SlaR: Namen in zufälliger Reihenfolge
+        Collections.shuffle(ret);
         
         return ret;
     }
