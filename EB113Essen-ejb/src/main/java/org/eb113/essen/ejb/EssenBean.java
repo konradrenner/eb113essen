@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Schedule;
@@ -21,9 +20,9 @@ import javax.inject.Named;
 
 import org.eb113.essen.dto.EssensAuswahl;
 import org.eb113.essen.dto.EssensMoeglichkeit;
-import org.eb113.essen.dto.EssensMoeglichkeiten;
+import org.eb113.essen.dto.EssensMoeglichkeitFactory;
 import org.eb113.essen.dto.Person;
-import org.eb113.essen.dto.Personen;
+import org.eb113.essen.dto.PersonFactory;
 
 /**
  * HOWTO Set Timezone on openShift:
@@ -47,14 +46,15 @@ public class EssenBean {
     @PostConstruct
     @Schedule(hour="16", minute="00",timezone="Europe/Vienna")
     public void init(){
-        this.auswahl = new ConcurrentHashMap<Person, EssensMoeglichkeit>();
+//        this.auswahl = new ConcurrentHashMap<Person, EssensMoeglichkeit>();
+//        this.auswahl.put(Personen.RENNER.getPerson(), EssensMoeglichkeiten.NICHTANWESEND.getEssensMoeglichkeit());
+//        this.auswahl.put(Personen.ROHRBOECK.getPerson(), EssensMoeglichkeiten.NICHTANWESEND.getEssensMoeglichkeit());
+//        this.auswahl.put(Personen.SCHLAGER.getPerson(), EssensMoeglichkeiten.NICHTANWESEND.getEssensMoeglichkeit());
+//        this.auswahl.put(Personen.SEIDL.getPerson(), EssensMoeglichkeiten.NICHTANWESEND.getEssensMoeglichkeit());
+//        this.auswahl.put(Personen.WOHLMUTH.getPerson(), EssensMoeglichkeiten.NICHTANWESEND.getEssensMoeglichkeit());
+//        this.auswahl.put(Personen.GAMAUF.getPerson(), EssensMoeglichkeiten.NICHTANWESEND.getEssensMoeglichkeit());
         
-        this.auswahl.put(Personen.RENNER.getPerson(), EssensMoeglichkeiten.NICHTANWESEND.getEssensMoeglichkeit());
-        this.auswahl.put(Personen.ROHRBOECK.getPerson(), EssensMoeglichkeiten.NICHTANWESEND.getEssensMoeglichkeit());
-        this.auswahl.put(Personen.SCHLAGER.getPerson(), EssensMoeglichkeiten.NICHTANWESEND.getEssensMoeglichkeit());
-        this.auswahl.put(Personen.SEIDL.getPerson(), EssensMoeglichkeiten.NICHTANWESEND.getEssensMoeglichkeit());
-        this.auswahl.put(Personen.WOHLMUTH.getPerson(), EssensMoeglichkeiten.NICHTANWESEND.getEssensMoeglichkeit());
-        this.auswahl.put(Personen.GAMAUF.getPerson(), EssensMoeglichkeiten.NICHTANWESEND.getEssensMoeglichkeit());
+        this.auswahl = PersonFactory.initPersonEssensMoeglichkeitMap();
         
         this.actualAuswahl = "";
         this.besteller = "";
@@ -66,26 +66,27 @@ public class EssenBean {
     
     public Collection<EssensAuswahl> getGewaehlteMoeglichkeiten(){
         ArrayList<EssensAuswahl> ret = new ArrayList<EssensAuswahl>(this.auswahl.size());
+        
         for(Person person : this.auswahl.keySet()){
             ret.add(new EssensAuswahl(person, this.auswahl.get(person)));
         }
         
-//        Collections.sort(ret);
-        //SlaR: Namen in zufälliger Reihenfolge
-        Collections.shuffle(ret);
+        //SlaR: Namen in zufälliger Reihenfolge, nach der ID sortiert
+        Collections.sort(ret);
         
         return ret;
     }
     
-    @Schedule(hour="9",minute="46", timezone="Europe/Vienna")
+//    @Schedule(hour="9",minute="46", timezone="Europe/Vienna")
+    @Schedule(hour="20",minute="40", timezone="Europe/Vienna")
     public void berechneAuswahl(){
         
         Map<EssensMoeglichkeit, Integer> auswahlen = new HashMap<EssensMoeglichkeit, Integer>();
         int anzNichtAnwesend = 0;
         for(EssensMoeglichkeit wahl : this.auswahl.values()){
-            if(wahl.equals(EssensMoeglichkeiten.NICHTANWESEND.getEssensMoeglichkeit())){
+            if(wahl.isNichtAnwesend()){
                 anzNichtAnwesend++;
-            }else if(!wahl.equals(EssensMoeglichkeiten.KEINEWAHL.getEssensMoeglichkeit())){
+            }else if(!wahl.isKeineWahl()){
                 if(auswahlen.containsKey(wahl)){
                     Integer anz = auswahlen.get(wahl);
                     anz = anz.intValue()+1;
@@ -98,7 +99,7 @@ public class EssenBean {
 
         this.actualAuswahl = null;
         
-        float anzAnwesende = ((float)Personen.values().length) - ((float)anzNichtAnwesend);
+        float anzAnwesende = ((float)PersonFactory.getAnzPersonen()) - ((float)anzNichtAnwesend);
         float drei = 3;
         float zwei = 2;
         
@@ -118,21 +119,21 @@ public class EssenBean {
             
             //Lauter unentschlossene
             if(auswahlen.isEmpty()){
-                wahl = EssensMoeglichkeiten.getRandomMoeglichkeit();
+                wahl = EssensMoeglichkeitFactory.getRandomMoeglichkeit();
             }else{
                 wahl = getRandomEssensWahl(auswahlen.keySet());
             }
             this.actualAuswahl = wahl.toString();
         }
         
-        if(this.actualAuswahl.equals(EssensMoeglichkeiten.BESTELLUNG.getEssensMoeglichkeit().toString())){
+        if(EssensMoeglichkeit.checkIsBestellung(this.actualAuswahl)){
             boolean nok = true;
             while(nok){
-                Person p = Personen.getRandomBesteller();
+                Person p = PersonFactory.getRandomBesteller();
                 
                 //SlaR: Besteller kann nur sein, wer Bestellung ausgwaehlt hat
-                if(this.auswahl.get(p).equals(EssensMoeglichkeiten.BESTELLUNG.getEssensMoeglichkeit())){
-                    this.besteller = Personen.getRandomBesteller().toString();
+                if(this.auswahl.get(p).isBestellung()){
+                    this.besteller = p.toString();
                     nok = false;
                 }
             }

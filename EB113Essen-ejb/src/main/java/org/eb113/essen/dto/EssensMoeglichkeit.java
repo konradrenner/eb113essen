@@ -59,5 +59,19 @@ public class EssensMoeglichkeit implements Comparable<EssensMoeglichkeit>, Seria
         return this.wuerfelAugen - o.getWuerfelAugen();
     }
     
+    public boolean isNichtAnwesend(){
+    	return this.wuerfelAugen == 0;
+    }
     
+    public boolean isKeineWahl(){
+    	return this.wuerfelAugen == -1;
+    }
+    
+    public boolean isBestellung(){
+    	return this.wuerfelAugen == 1;
+    }
+    
+    public static boolean checkIsBestellung(String augen){
+    	return "1 - Bestellung".equalsIgnoreCase(augen);
+    }
 }

@@ -12,60 +12,71 @@ import static org.junit.Assert.assertTrue;
 import java.util.Collection;
 
 import org.eb113.essen.dto.EssensAuswahl;
-import org.eb113.essen.dto.EssensMoeglichkeiten;
-import org.eb113.essen.dto.Personen;
+import org.eb113.essen.dto.EssensMoeglichkeit;
+import org.eb113.essen.dto.EssensMoeglichkeitFactory;
+import org.eb113.essen.dto.PersonFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- *
+ * 
  * @author koni
  */
 public class EssenBeanTest {
-    
-    EssenBean bean;
-    
-    @Before
-    public void setUp() {
-        bean = new EssenBean();
-        bean.init();
-    }
-    
-    @After
-    public void tearDown() {
-        //nothing at the moment
-    }
-    
-    @Test
-    public void testBerechneAuswahl2DrittelMehrheitAndBesteller(){
-        bean.addAuswahl(Personen.GAMAUF.getPerson(), EssensMoeglichkeiten.BESTELLUNG.getEssensMoeglichkeit());
-        bean.addAuswahl(Personen.SCHLAGER.getPerson(), EssensMoeglichkeiten.BESTELLUNG.getEssensMoeglichkeit());
-        bean.addAuswahl(Personen.SEIDL.getPerson(), EssensMoeglichkeiten.BESTELLUNG.getEssensMoeglichkeit());
-        bean.addAuswahl(Personen.ROHRBOECK.getPerson(), EssensMoeglichkeiten.KELLER.getEssensMoeglichkeit());
-        
-        bean.berechneAuswahl();
-        
-        assertNotNull(bean.getActualAuswahl());
-        assertNotNull(bean.getBesteller());
-        
-        assertNotSame("", bean.getActualAuswahl().trim());
-        assertNotSame("", bean.getBesteller().trim());
-        
-        assertNotSame(Personen.RENNER.getPerson().toString(), bean.getBesteller());
-        assertNotSame(Personen.ROHRBOECK.getPerson().toString(), bean.getBesteller());
-        assertNotSame(Personen.WOHLMUTH.getPerson().toString(), bean.getBesteller());
-        assertEquals(EssensMoeglichkeiten.BESTELLUNG.getEssensMoeglichkeit().toString(), bean.getActualAuswahl());
-    }
-    
-    @Test
+
+	EssenBean bean;
+
+	@Before
+	public void setUp() {
+		bean = new EssenBean();
+		bean.init();
+	}
+
+	@After
+	public void tearDown() {
+		// nothing at the moment
+	}
+
+	@Test
+	public void testBerechneAuswahl2DrittelMehrheitAndBesteller() {
+		bean.addAuswahl(PersonFactory.getGamauf(0),
+				EssensMoeglichkeitFactory.getBestellung());
+		bean.addAuswahl(PersonFactory.getSchlager(1),
+				EssensMoeglichkeitFactory.getBestellung());
+		bean.addAuswahl(PersonFactory.getSeidl(2),
+				EssensMoeglichkeitFactory.getBestellung());
+		bean.addAuswahl(PersonFactory.getRohrboeck(3),
+				EssensMoeglichkeitFactory.getBilla());
+
+		bean.berechneAuswahl();
+
+		assertNotNull(bean.getActualAuswahl());
+		assertNotNull(bean.getBesteller());
+
+		assertNotSame("", bean.getActualAuswahl().trim());
+		System.out.println("asdf: " + bean.getActualAuswahl());
+		System.out.println("asdf: " + bean.getBesteller());
+		assertNotSame("", bean.getBesteller().trim());
+
+		assertNotSame(PersonFactory.getRenner(0).toString(),
+				bean.getBesteller());
+		assertNotSame(PersonFactory.getRohrboeck(0).toString(),
+				bean.getBesteller());
+		assertNotSame(PersonFactory.getWohlmuth(0).toString(),
+				bean.getBesteller());
+		assertEquals(EssensMoeglichkeitFactory.getBestellung().toString(),
+				bean.getActualAuswahl());
+	}
+
+	@Test
     public void testBerechneRandomAuswahl(){
-        bean.addAuswahl(Personen.GAMAUF.getPerson(), EssensMoeglichkeiten.KEBAP.getEssensMoeglichkeit());
-        bean.addAuswahl(Personen.SCHLAGER.getPerson(), EssensMoeglichkeiten.LUTZ.getEssensMoeglichkeit());
-        bean.addAuswahl(Personen.SEIDL.getPerson(), EssensMoeglichkeiten.BESTELLUNG.getEssensMoeglichkeit());
-        bean.addAuswahl(Personen.ROHRBOECK.getPerson(), EssensMoeglichkeiten.KELLER.getEssensMoeglichkeit());
-        bean.addAuswahl(Personen.RENNER.getPerson(), EssensMoeglichkeiten.OCONNOR.getEssensMoeglichkeit());
-        bean.addAuswahl(Personen.WOHLMUTH.getPerson(), EssensMoeglichkeiten.OLIVIA.getEssensMoeglichkeit());
+        bean.addAuswahl(PersonFactory.getGamauf(0), EssensMoeglichkeitFactory.getBestellung());
+        bean.addAuswahl(PersonFactory.getSchlager(0), EssensMoeglichkeitFactory.getLutz());
+        bean.addAuswahl(PersonFactory.getSeidl(0), EssensMoeglichkeitFactory.getBestellung());
+        bean.addAuswahl(PersonFactory.getRohrboeck(0), EssensMoeglichkeitFactory.getBilla());
+        bean.addAuswahl(PersonFactory.getRenner(0), EssensMoeglichkeitFactory.getBilla());
+        bean.addAuswahl(PersonFactory.getWohlmuth(0), EssensMoeglichkeitFactory.getLutz());
         
         bean.berechneAuswahl();
         
@@ -74,26 +85,25 @@ public class EssenBeanTest {
         
         assertNotSame("", bean.getActualAuswahl().trim());
         
-        assertTrue(bean.getActualAuswahl().equals(EssensMoeglichkeiten.KEBAP.toString()) || 
-                bean.getActualAuswahl().equals(EssensMoeglichkeiten.LUTZ.toString()) || 
-                bean.getActualAuswahl().equals(EssensMoeglichkeiten.BESTELLUNG.toString()) || 
-                bean.getActualAuswahl().equals(EssensMoeglichkeiten.KELLER.toString()) || 
-                bean.getActualAuswahl().equals(EssensMoeglichkeiten.OCONNOR.toString()) || 
-                bean.getActualAuswahl().equals(EssensMoeglichkeiten.OLIVIA.toString()));
+        assertTrue(bean.getActualAuswahl().startsWith("1") || 
+                bean.getActualAuswahl().startsWith("2") || 
+                bean.getActualAuswahl().startsWith("3"));
         
-        if(bean.getActualAuswahl().equals(EssensMoeglichkeiten.BESTELLUNG.toString()) ){
+        if(EssensMoeglichkeit.checkIsBestellung(bean.getActualAuswahl()) ){
             assertNotSame("", bean.getBesteller().trim());
-            assertNotSame(Personen.WOHLMUTH.getPerson().toString(), bean.getBesteller());
+            assertEquals(PersonFactory.getGamauf(0).toString(), bean.getBesteller());
+            assertEquals(PersonFactory.getSeidl(0).toString(), bean.getBesteller());
         }else{
             assertEquals("", bean.getBesteller().trim());
         }
     }
-    
-    @Test
-    public void testPersonen(){
-    	Collection<EssensAuswahl> essensAuswahl = bean.getGewaehlteMoeglichkeiten();
-    	for(EssensAuswahl one: essensAuswahl){
-    		System.out.println("Nachname: " + one.getPerson().getNachname());
-    	}
-    }
+
+	@Test
+	public void testPersonen() {
+		Collection<EssensAuswahl> essensAuswahl = bean
+				.getGewaehlteMoeglichkeiten();
+		for (EssensAuswahl one : essensAuswahl) {
+			System.out.println("Nachname: " + one.getPerson().getNachname());
+		}
+	}
 }

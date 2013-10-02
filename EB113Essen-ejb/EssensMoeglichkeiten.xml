@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>EssensMoeglichkeiten</comment>
+<entry key="-1">Unentschlossen</entry>
+<entry key="0">Nicht Anwesend</entry>
+<entry key="1">Bestellung</entry>
+<entry key="2">Lutz</entry>
+<entry key="3">Billa</entry>
+<entry key="4">Kebap</entry>
+<entry key="5">O'Connors</entry>
+<entry key="6">Chinese</entry>
+<entry key="7">Sportkantine Sturm</entry>
+<entry key="8">Sportwirt</entry>
+<entry key="9">T-Center</entry>
+<entry key="10">Keller</entry>
+</properties>

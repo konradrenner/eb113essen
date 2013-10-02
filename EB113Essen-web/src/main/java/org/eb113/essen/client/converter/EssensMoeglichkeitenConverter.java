@@ -4,12 +4,15 @@
  */
 package org.eb113.essen.client.converter;
 
+import java.util.List;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+
 import org.eb113.essen.dto.EssensMoeglichkeit;
-import org.eb113.essen.dto.EssensMoeglichkeiten;
+import org.eb113.essen.dto.EssensMoeglichkeitFactory;
 
 /**
  *
@@ -20,14 +23,14 @@ public class EssensMoeglichkeitenConverter implements Converter {
 
     @Override
     public EssensMoeglichkeit getAsObject(FacesContext fc, UIComponent uic, String string) {
-        EssensMoeglichkeiten[] arr = EssensMoeglichkeiten.values();
+        List<EssensMoeglichkeit> allPoss = EssensMoeglichkeitFactory.getAllPossibilities();
         
         System.out.println("Uebergeben:"+string);
         
-        for(EssensMoeglichkeiten item : arr){
+        for(EssensMoeglichkeit item : allPoss){
             System.out.println("CurrentItem:"+item);
             if(item.toString().equals(string)){
-                return item.getEssensMoeglichkeit();
+                return item;
             }
         }
         

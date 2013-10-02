@@ -6,13 +6,16 @@ package org.eb113.essen.client;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
+
 import javax.enterprise.context.SessionScoped;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
+
 import org.eb113.essen.dto.EssensAuswahl;
-import org.eb113.essen.dto.EssensMoeglichkeiten;
-import org.eb113.essen.dto.Personen;
+import org.eb113.essen.dto.EssensMoeglichkeit;
+import org.eb113.essen.dto.EssensMoeglichkeitFactory;
 import org.eb113.essen.ejb.EssenBean;
 /**
  *
@@ -45,24 +48,33 @@ public class EssenController implements Serializable {
     }
     
     public SelectItem[] getPersonen(){
-        Personen[] arr = Personen.values();
-        SelectItem[] ret = new SelectItem[arr.length];
-        
-        int i=0;
-        for(Personen item : arr){
-            SelectItem s = new SelectItem(item.toString(),item.toString());
-            ret[i++] = s;
-        }
-        
-        return ret;
+    	Collection<EssensAuswahl> auswahl = bean.getGewaehlteMoeglichkeiten();
+    	SelectItem[] ret = new SelectItem[auswahl.size()];
+    	int i=0;
+    	for(EssensAuswahl one : auswahl){
+    		ret[i++] = new SelectItem(one.getPerson().toString());
+    	}
+    	return ret;
+    	
+//        PersonenEnum[] arr = PersonenEnum.values();
+//        SelectItem[] ret = new SelectItem[arr.length];
+//        
+//        int i=0;
+//        for(PersonenEnum item : arr){
+//            SelectItem s = new SelectItem(item.toString(),item.toString());
+//            ret[i++] = s;
+//        }
+//        
+//        return ret;
     }
     
     public SelectItem[] getEssensMoeglichkeiten(){
-        EssensMoeglichkeiten[] arr = EssensMoeglichkeiten.values();
-        SelectItem[] ret = new SelectItem[arr.length];
+//        EssensMoeglichkeiten[] arr = EssensMoeglichkeiten.values();
+        List<EssensMoeglichkeit> allPoss = EssensMoeglichkeitFactory.getAllPossibilities();
+        SelectItem[] ret = new SelectItem[allPoss.size()];
         
         int i=0;
-        for(EssensMoeglichkeiten item : arr){
+        for(EssensMoeglichkeit item : allPoss){
             SelectItem s = new SelectItem(item.toString(),item.toString());
             ret[i++] = s;
         }
@@ -85,6 +97,4 @@ public class EssenController implements Serializable {
     public void setEditedItem(EssensAuswahl editedItem) {
         this.editedItem = editedItem;
     }
-    
-    
 }

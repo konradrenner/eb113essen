@@ -44,41 +44,53 @@ public class EssensAuswahl implements Serializable, Comparable<EssensAuswahl> {
 
     @Override
     public int compareTo(EssensAuswahl o) {
-        return this.person.compareTo(o.getPerson());
-    }
-    
-    
-
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 19 * hash + (this.person != null ? this.person.hashCode() : 0);
-        hash = 19 * hash + (this.auswahl != null ? this.auswahl.hashCode() : 0);
-        return hash;
+        return person.getId().compareTo(o.getPerson().getId());
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final EssensAuswahl other = (EssensAuswahl) obj;
-        if (this.person != other.person && (this.person == null || !this.person.equals(other.person))) {
-            return false;
-        }
-        if (this.auswahl != other.auswahl && (this.auswahl == null || !this.auswahl.equals(other.auswahl))) {
-            return false;
-        }
-        return true;
-    }
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((auswahl == null) ? 0 : auswahl.hashCode());
+		result = prime * result + ((person == null) ? 0 : person.hashCode());
+		return result;
+	}
 
-    @Override
-    public String toString() {
-        return "EssensAuswahl{" + "person=" + person + ", auswahl=" + auswahl + '}';
-    }
-    
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		EssensAuswahl other = (EssensAuswahl) obj;
+		if (auswahl == null) {
+			if (other.auswahl != null)
+				return false;
+		} else if (!auswahl.equals(other.auswahl))
+			return false;
+		if (person == null) {
+			if (other.person != null)
+				return false;
+		} else if (!person.equals(other.person))
+			return false;
+		return true;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "EssensAuswahl [person=" + person + ", auswahl="
+				+ auswahl + "]";
+	}
     
 }
