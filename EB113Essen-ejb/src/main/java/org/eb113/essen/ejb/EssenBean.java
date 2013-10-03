@@ -77,8 +77,7 @@ public class EssenBean {
         return ret;
     }
     
-//    @Schedule(hour="9",minute="46", timezone="Europe/Vienna")
-    @Schedule(hour="20",minute="40", timezone="Europe/Vienna")
+    @Schedule(hour="9",minute="46", timezone="Europe/Vienna")
     public void berechneAuswahl(){
         
         Map<EssensMoeglichkeit, Integer> auswahlen = new HashMap<EssensMoeglichkeit, Integer>();
