@@ -1,8 +1,7 @@
 package org.eb113.essen.dto;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -15,11 +14,9 @@ public class EssensMoeglichkeitFactory {
 	private static List<EssensMoeglichkeit> allPossibilities = null;
 
 	private static void initPossibilities() {
-		FileInputStream fis = null;
+            InputStream fis = null;
 		try {
-			File file = new File("EssensMoeglichkeiten.xml");
-			System.out.println("Absolute Pfad: " + file.getAbsolutePath());
-			fis = new FileInputStream(file);
+                    fis = EssensMoeglichkeitFactory.class.getResourceAsStream("../resources/java/EssensMoeglichkeiten.xml");
 			Properties props = new Properties();
 			props.loadFromXML(fis);
 

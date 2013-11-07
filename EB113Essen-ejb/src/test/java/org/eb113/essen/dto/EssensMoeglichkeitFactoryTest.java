@@ -4,7 +4,6 @@
 package org.eb113.essen.dto;
 
 import java.util.List;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -35,11 +34,11 @@ public class EssensMoeglichkeitFactoryTest {
 	 * {@link org.eb113.essen.dto.EssensMoeglichkeitFactory#getAllPossibilities()}
 	 * .
 	 */
-	@Test
+    @Test
 	public void testGetAllPossibilities() {
-		List<EssensMoeglichkeit> allPoss = EssensMoeglichkeitFactory
-				.getAllPossibilities();
-		Assert.assertNotNull(allPoss);
+        List<EssensMoeglichkeit> allPoss = EssensMoeglichkeitFactory
+            				.getAllPossibilities();
+        Assert.assertNotNull(allPoss);
 		Assert.assertTrue(allPoss.size() > 5);
 	}
 

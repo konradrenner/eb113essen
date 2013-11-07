@@ -90,6 +90,18 @@
             </configuration>
          </plugin>
       </plugins>
+      
+      <resources> 
+          <resource> 
+              <directory>src/main</directory>
+              <includes>
+                  <include>
+                      **/*.xml
+                  </include>
+              </includes>
+              <targetPath>org/eb113/essen/resources/</targetPath>
+          </resource>
+      </resources>
    </build>
 
    <profiles>
