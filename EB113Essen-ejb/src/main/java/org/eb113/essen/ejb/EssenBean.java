@@ -150,7 +150,7 @@ public class EssenBean {
     private EssensMoeglichkeit getRandomEssensWahl(Set<EssensMoeglichkeit> moegls){
         Random random = new Random();
         
-        int zahl = random.nextInt(moegls.size()-1);
+        int zahl = random.nextInt(moegls.size());
         
         return moegls.toArray(new EssensMoeglichkeit[moegls.size()])[zahl];
     }
