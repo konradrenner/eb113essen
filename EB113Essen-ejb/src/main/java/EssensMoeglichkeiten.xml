@@ -7,13 +7,14 @@
 	<entry key="1">Bestellung</entry>
 	<entry key="2">Lutz</entry>
 	<entry key="3">Billa</entry>
-	<entry key="4">Kebap</entry>
-	<entry key="5">O'Connors</entry>
-	<entry key="6">Chinese</entry>
-	<entry key="7">Sportkantine Sturm</entry>
-	<entry key="8">Kleine Steiermark</entry>
-	<entry key="9">T-Center</entry>
-	<entry key="10">Keller</entry>
-	<entry key="11">Restauration St. Marx</entry>
-	<entry key="12">East End</entry>
+        <entry key="4">Kebap</entry>
+        <entry key="5">Würstelstand</entry>
+        <entry key="6">O'Connors</entry>
+        <entry key="7">Chinese</entry>
+        <entry key="8">Sportkantine Sturm</entry>
+        <entry key="9">Kleine Steiermark</entry>
+        <entry key="10">T-Center</entry>
+        <entry key="11">Keller</entry>
+        <entry key="12">Restauration St. Marx</entry>
+        <entry key="13">East End</entry>
 </properties>

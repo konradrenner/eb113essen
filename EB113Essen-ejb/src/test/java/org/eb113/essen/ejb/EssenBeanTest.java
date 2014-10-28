@@ -4,18 +4,16 @@
  */
 package org.eb113.essen.ejb;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertTrue;
-
 import java.util.Collection;
-
 import org.eb113.essen.dto.EssensAuswahl;
 import org.eb113.essen.dto.EssensMoeglichkeit;
 import org.eb113.essen.dto.EssensMoeglichkeitFactory;
 import org.eb113.essen.dto.PersonFactory;
 import org.junit.After;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -41,8 +39,6 @@ public class EssenBeanTest {
 	@Test
 	public void testBerechneAuswahl2DrittelMehrheitAndBesteller() {
 		bean.addAuswahl(PersonFactory.getGamauf(0),
-				EssensMoeglichkeitFactory.getBestellung());
-		bean.addAuswahl(PersonFactory.getSchlager(1),
 				EssensMoeglichkeitFactory.getBestellung());
 		bean.addAuswahl(PersonFactory.getSeidl(2),
 				EssensMoeglichkeitFactory.getBestellung());
@@ -72,7 +68,6 @@ public class EssenBeanTest {
 	@Test
     public void testBerechneRandomAuswahl(){
         bean.addAuswahl(PersonFactory.getGamauf(0), EssensMoeglichkeitFactory.getBestellung());
-        bean.addAuswahl(PersonFactory.getSchlager(0), EssensMoeglichkeitFactory.getLutz());
         bean.addAuswahl(PersonFactory.getSeidl(0), EssensMoeglichkeitFactory.getBestellung());
         bean.addAuswahl(PersonFactory.getRohrboeck(0), EssensMoeglichkeitFactory.getBilla());
         bean.addAuswahl(PersonFactory.getRenner(0), EssensMoeglichkeitFactory.getBilla());

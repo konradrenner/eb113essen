@@ -22,7 +22,6 @@ public class PersonFactory {
         Collections.shuffle(availableIDs);
 		personen.put(getRenner(availableIDs.get(0)), EssensMoeglichkeitFactory.getDefaultAuswahl());
         personen.put(getRohrboeck(availableIDs.get(1)), EssensMoeglichkeitFactory.getDefaultAuswahl());
-        personen.put(getSchlager(availableIDs.get(2)), EssensMoeglichkeitFactory.getDefaultAuswahl());
         personen.put(getSeidl(availableIDs.get(3)), EssensMoeglichkeitFactory.getDefaultAuswahl());
         personen.put(getWohlmuth(availableIDs.get(4)), EssensMoeglichkeitFactory.getDefaultAuswahl());
         personen.put(getGamauf(availableIDs.get(5)), EssensMoeglichkeitFactory.getDefaultAuswahl());
@@ -34,10 +33,6 @@ public class PersonFactory {
 	
 	public static Person getGamauf(Integer id){
 		return new Person(id, "Benjamin", "Gamauf", "GamB");
-	}
-	
-	public static Person getSchlager(Integer id){
-		return new Person(id, "Robert", "Schlager", "SlaR");
 	}
 	
 	public static Person getRohrboeck(Integer id){
