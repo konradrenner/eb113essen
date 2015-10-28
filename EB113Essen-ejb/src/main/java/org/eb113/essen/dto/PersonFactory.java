@@ -16,15 +16,16 @@ public class PersonFactory {
 		personen = new ConcurrentHashMap<Person, EssensMoeglichkeit>();
 		
 		List<Integer> availableIDs = new ArrayList<Integer>();
-        for(int i = 0; i < 6; i++){
+        for(int i = 0; i < 7; i++){
         	availableIDs.add(i);
         }
         Collections.shuffle(availableIDs);
-		personen.put(getRenner(availableIDs.get(0)), EssensMoeglichkeitFactory.getDefaultAuswahl());
+        personen.put(getRenner(availableIDs.get(0)), EssensMoeglichkeitFactory.getDefaultAuswahl());
         personen.put(getRohrboeck(availableIDs.get(1)), EssensMoeglichkeitFactory.getDefaultAuswahl());
         personen.put(getSeidl(availableIDs.get(3)), EssensMoeglichkeitFactory.getDefaultAuswahl());
         personen.put(getWohlmuth(availableIDs.get(4)), EssensMoeglichkeitFactory.getDefaultAuswahl());
         personen.put(getGamauf(availableIDs.get(5)), EssensMoeglichkeitFactory.getDefaultAuswahl());
+        personen.put(getZelinger(availableIDs.get(6)), EssensMoeglichkeitFactory.getDefaultAuswahl());
         
         anzPersonen = personen.size();
         
@@ -49,6 +50,10 @@ public class PersonFactory {
 	
 	public static Person getWohlmuth(Integer id){
 		return new Person(id, "Manfred", "Wohlmuth", "WohM");
+	}
+        
+        public static Person getZelinger(Integer id){
+		return new Person(id, "Philipp", "Zelinger", "ZelP");
 	}
 
 	/**
