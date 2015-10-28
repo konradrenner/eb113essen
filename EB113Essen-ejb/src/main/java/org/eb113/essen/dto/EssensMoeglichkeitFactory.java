@@ -16,7 +16,7 @@ public class EssensMoeglichkeitFactory {
 	private static void initPossibilities() {
             InputStream fis = null;
 		try {
-                    fis = EssensMoeglichkeitFactory.class.getResourceAsStream("../resources/java/EssensMoeglichkeiten.xml");
+                    fis = EssensMoeglichkeitFactory.class.getClassLoader().getResourceAsStream("EssensMoeglichkeiten.xml");
 			Properties props = new Properties();
 			props.loadFromXML(fis);
 

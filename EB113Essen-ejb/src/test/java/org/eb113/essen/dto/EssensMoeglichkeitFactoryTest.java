@@ -36,10 +36,10 @@ public class EssensMoeglichkeitFactoryTest {
 	 */
     @Test
 	public void testGetAllPossibilities() {
-        List<EssensMoeglichkeit> allPoss = EssensMoeglichkeitFactory
+            List<EssensMoeglichkeit> allPoss = EssensMoeglichkeitFactory
             				.getAllPossibilities();
-        Assert.assertNotNull(allPoss);
-		Assert.assertTrue(allPoss.size() > 5);
+            Assert.assertNotNull(allPoss);
+            Assert.assertTrue(allPoss.size() > 6);
 	}
 
 }
