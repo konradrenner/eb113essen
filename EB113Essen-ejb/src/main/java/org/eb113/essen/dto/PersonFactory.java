@@ -1,8 +1,5 @@
 package org.eb113.essen.dto;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
@@ -13,20 +10,14 @@ public class PersonFactory {
 	private static int anzPersonen = 0;
 
 	public static Map<Person, EssensMoeglichkeit> initPersonEssensMoeglichkeitMap(){
-		personen = new ConcurrentHashMap<Person, EssensMoeglichkeit>();
-		
-		List<Integer> availableIDs = new ArrayList<Integer>();
-            for (int i = 0; i < 8; i++) {
-        	availableIDs.add(i);
-        }
-        Collections.shuffle(availableIDs);
-        personen.put(getRenner(availableIDs.get(0)), EssensMoeglichkeitFactory.getDefaultAuswahl());
-        personen.put(getRohrboeck(availableIDs.get(1)), EssensMoeglichkeitFactory.getDefaultAuswahl());
-        personen.put(getSeidl(availableIDs.get(3)), EssensMoeglichkeitFactory.getDefaultAuswahl());
-        personen.put(getWohlmuth(availableIDs.get(4)), EssensMoeglichkeitFactory.getDefaultAuswahl());
-        personen.put(getGamauf(availableIDs.get(5)), EssensMoeglichkeitFactory.getDefaultAuswahl());
-            personen.put(getZelinger(availableIDs.get(6)), EssensMoeglichkeitFactory.getDefaultAuswahl());
-            personen.put(getBarsoum(availableIDs.get(7)), EssensMoeglichkeitFactory.getDefaultAuswahl());
+            personen = new ConcurrentHashMap<Person, EssensMoeglichkeit>();
+            personen.put(getRenner(1), EssensMoeglichkeitFactory.getDefaultAuswahl());
+            personen.put(getRohrboeck(2), EssensMoeglichkeitFactory.getDefaultAuswahl());
+            personen.put(getSeidl(3), EssensMoeglichkeitFactory.getDefaultAuswahl());
+            personen.put(getWohlmuth(4), EssensMoeglichkeitFactory.getDefaultAuswahl());
+            personen.put(getGamauf(5), EssensMoeglichkeitFactory.getDefaultAuswahl());
+            personen.put(getZelinger(6), EssensMoeglichkeitFactory.getDefaultAuswahl());
+            personen.put(getBarsoum(7), EssensMoeglichkeitFactory.getDefaultAuswahl());
         
         anzPersonen = personen.size();
         
