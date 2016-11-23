@@ -13,7 +13,7 @@
         
     <a4j:status onstart="#{rich:component('statPane')}.show()" onstop="#{rich:component('statPane')}.hide()" />
     <h:form id="form">
-        <rich:dataTable value="#{essen.essensWahl}" var="wahl" iterationStatusVar="it" id="table" rows="6">
+        <rich:dataTable value="#{essen.essensWahl}" var="wahl" iterationStatusVar="it" id="table" rows="#{essen.essensWahl.size()}">
             <rich:column>
                 <f:facet name="header">#</f:facet>
                 #{it.index}
