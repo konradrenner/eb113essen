@@ -18,6 +18,7 @@ public class PersonFactory {
             personen.put(getGamauf(5), EssensMoeglichkeitFactory.getDefaultAuswahl());
             personen.put(getZelinger(6), EssensMoeglichkeitFactory.getDefaultAuswahl());
             personen.put(getBarsoum(7), EssensMoeglichkeitFactory.getDefaultAuswahl());
+            personen.put(getSchlager(8), EssensMoeglichkeitFactory.getDefaultAuswahl());
         
         anzPersonen = personen.size();
         
@@ -42,6 +43,10 @@ public class PersonFactory {
 
     public static Person getBarsoum(Integer id) {
         return new Person(id, "Samih", "Barsoum", "BarS");
+    }
+
+    public static Person getSchlager(Integer id) {
+        return new Person(id, "Robert", "Schlager", "SlaR");
     }
 	
 	public static Person getWohlmuth(Integer id){

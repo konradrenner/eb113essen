@@ -55,7 +55,7 @@ public class EssensMoeglichkeitFactory {
 
 		int zahl = random.nextInt(10);
 
-		for (EssensMoeglichkeit keit : allPossibilities) {
+            for (EssensMoeglichkeit keit : getAllPossibilities()) {
 			if (keit.getWuerfelAugen() == zahl) {
 				return keit;
 			}
